@@ -1,3 +1,5 @@
+cargo-features = ['rename-dependency']
+
 [package]
 name = "dlmalloc"
 version = "0.1.0"
@@ -10,6 +12,10 @@ test = false
 [target.'cfg(all(unix, not(target_arch = "wasm32")))'.dependencies]
 libc = { version = "0.2", default-features = false }
 
+[dependencies]
+core = { version = '1.0.0', optional = true, package = 'rustc-std-workspace-core' }
+compiler_builtins = { version = '0.1.0', optional = true }
+
 [dev-dependencies]
 rand = "0.3"
 
@@ -19,3 +25,4 @@ debug-assertions = true
 [features]
 debug = []
 allocator-api = []
+rustc-dep-of-std = ['core', 'compiler_builtins/rustc-dep-of-std']
